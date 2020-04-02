@@ -26,9 +26,9 @@ public class UserController {
     return ResponseEntity.ok(findOne);
   }
 
-  @GetMapping("/create")
-  public User create() {
-    User user = User.builder().username("1234").name("123").age(18).balance(new BigDecimal("60.2")).build();
+  @GetMapping("/create/{id}")
+  public User create(@PathVariable Long id) {
+    User user = User.builder().id(id).username("1234").name("123").age(18).balance(new BigDecimal("60.2")).build();
     return restTemplate.postForObject(PAYMANT_URL + "/create", user, User.class);
   }
 }

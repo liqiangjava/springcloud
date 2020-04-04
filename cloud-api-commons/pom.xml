@@ -15,7 +15,14 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <!--
       <optional>true</optional>
+      Optional和Exclusions都是用来控制依赖的传递
+      optional
+      可选的，可以理解为此功能/此依赖可选，如果不需要某项功能，可以不引用这个包。
+      scope provided
+      提供的，可以理解为此包不由我直接提供，需要调用者/容器提供。
+      -->
       <version>1.18.12</version>
     </dependency>
     <dependency>

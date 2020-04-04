@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @RestController
 @Slf4j
 public class UserController {
 
-  private static final String PAYMANT_URL = "http://localhost:8001";
+  // private static final String PAYMANT_URL = "http://localhost:8001";
+  private static final String PAYMANT_URL = "http://CLOUD-PAYMENT-SERVICE";
   @Autowired
   private RestTemplate restTemplate;
 
   @GetMapping("/{id}")
   public ResponseEntity findById(@PathVariable Long id) {
-    log.info("1234");
-    User findOne = restTemplate.getForObject(PAYMANT_URL + "/" + id, User.class);
-    return ResponseEntity.ok(findOne);
+    return ResponseEntity.ok(restTemplate.getForObject(PAYMANT_URL + "/" + id, Map.class));
   }
 
   @GetMapping("/create/{id}")

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
@@ -47,6 +48,20 @@ public class UserController {
           serviceInstance.getPort(), serviceInstance.getUri());
     }
     map.put("serviceInstances", serviceInstances);
+    return map;
+  }
+
+  @GetMapping("/timeout/{id}")
+  public Map<String, Object> timeoutById(@PathVariable Long id) {
+    try {
+      TimeUnit.SECONDS.sleep(3);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    User findOne = userRepository.getOne(id);
+    Map<String, Object> map = new HashMap<>();
+    map.put("user", findOne);
+    map.put("port", serverPort);
     return map;
   }
 

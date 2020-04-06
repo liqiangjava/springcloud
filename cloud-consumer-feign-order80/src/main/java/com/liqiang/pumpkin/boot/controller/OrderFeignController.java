@@ -23,4 +23,10 @@ public class OrderFeignController {
     return ResponseEntity.ok(paymentFeignService.findById(id));
   }
 
+  @GetMapping("/timeout/{id}")
+  public ResponseEntity timeoutById(@PathVariable Long id) {
+    // openfeign 默认等待1s钟
+    return ResponseEntity.ok(paymentFeignService.timeoutById(id));
+  }
+
 }

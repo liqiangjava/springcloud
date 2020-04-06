@@ -16,3 +16,10 @@ eureka:
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
     register-with-eureka: true # true表示将自己注册进EurekaServer 默认为true
     fetch-registry: true #是否从EurekaServer抓取己有的注册信息，默认为true，单节点无所谓，集群必须设置为true才以配合riboon使用负载均衡
+
+#设置Feign客户端的超时时间(OpenFeign默认支持ribbon)
+ribbon:
+#指的是建立连接所用的时间，适用于网络状态正常的情况下，两端连接所用的时间
+  ReadTimeout: 5000
+#指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000

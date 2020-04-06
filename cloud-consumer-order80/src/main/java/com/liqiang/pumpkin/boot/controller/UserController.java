@@ -26,6 +26,15 @@ public class UserController {
     return ResponseEntity.ok(restTemplate.getForObject(PAYMANT_URL + "/" + id, Map.class));
   }
 
+  @GetMapping("/{id}/2")
+  public Object findById2(@PathVariable Long id) {
+    ResponseEntity responseEntity = restTemplate.getForEntity(PAYMANT_URL + "/" + id, Map.class);
+    if (responseEntity.getStatusCode().is2xxSuccessful()) {
+      return responseEntity.getBody();
+    }
+    return responseEntity.getStatusCode();
+  }
+
   @GetMapping("/create/{id}")
   public User create(@PathVariable Long id) {
     User user = User.builder().id(id).username("1234").name("123").age(18).balance(new BigDecimal("60.2")).build();

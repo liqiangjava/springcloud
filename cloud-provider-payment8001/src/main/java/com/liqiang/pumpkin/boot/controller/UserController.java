@@ -5,7 +5,6 @@ import com.liqiang.pumpkin.boot.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +25,17 @@ public class UserController {
   private String serverPort;
 
   @GetMapping("/{id}")
-  public ResponseEntity findById(@PathVariable Long id) {
+  public Map<String, Object> findById(@PathVariable Long id) {
     User findOne = userRepository.getOne(id);
     Map<String, Object> map = new HashMap<>();
     map.put("user", findOne);
     map.put("port", serverPort);
-    return ResponseEntity.ok(map);
+    return map;
+  }
+
+  @GetMapping("/abc/abc")
+  public String findById2() {
+    return "2222";
   }
 
   @PostMapping("/create")

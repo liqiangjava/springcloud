@@ -78,7 +78,7 @@ public class UserController {
     Map<String, Object> map = new HashMap<>();
     // map.put("user", findOne);
     // map.put("port", serverPort);
-    //int age = 10 / 0;
+    // int age = 10 / 0;
     String str = paymentInfo_TimeOut(id.intValue());
     map.put("str", str);
     log.info(str);
@@ -103,4 +103,25 @@ public class UserController {
 
     return userRepository.save(user);
   }
+
+  // ---服务熔断
+  @GetMapping("/payment/circuit/{id}")
+  @HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback", commandProperties = {
+      @HystrixProperty(name = "circuitBreaker.enabled", value = "true"), // 是否开启断路器
+      @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"), // 请求次数
+      @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), // 时间窗口期
+      @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60") }) // 失败训练场达到多少后跳闸
+  public String paymentCircuiBreaker(@PathVariable("id") Integer id) {
+    if (id < 0) {
+      throw new RuntimeException("******ID 不能负数");
+    }
+
+    String str = paymentInfo_Ok(id);
+    return str;
+  }
+
+  public String paymentCircuitBreaker_fallback(@PathVariable("id") Integer id) {
+    return "id 不能负数。。。id:" + id;
+  }
+
 }

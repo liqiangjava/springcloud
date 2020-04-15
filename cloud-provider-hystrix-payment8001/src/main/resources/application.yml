@@ -33,3 +33,9 @@ eureka:
     lease-renewal-interval-in-seconds: 10
     # Eureka客户端在收到最后一次心跳后等待时间上限，单位为秒（默认为90秒），超时将剔除服务
     lease-expiration-duration-in-seconds: 40
+#解决http://localhost:9000/actuator/hystrix.stream无法访问的问题
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      label: master # 分支名称
+      name: config #配置文件名称
+      profile: dev #读取后缀名称   master分支上config-dev.yml的配置文件被读到config master上
+      uri: http://localhost:3344 #配置中心地址
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

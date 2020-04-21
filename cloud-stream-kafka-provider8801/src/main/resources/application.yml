@@ -1,0 +1,20 @@
+
+spring:
+  application:
+    name: stream-sink
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka:9092
+      bindings:
+        goods-out: # 输出通道
+          destination: goods  # 对应的topic
+          contentType: application/json
+        #也可以bing多个通道
+        log-out:
+          destination: log  # 对应的topic
+          contentType: application/json
+      default-binder: kafka  #与consul 使用时需要指定 binder
+server:
+  port: 8801

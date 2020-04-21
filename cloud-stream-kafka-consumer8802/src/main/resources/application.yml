@@ -1,0 +1,18 @@
+
+spring:
+  application:
+    name: stream-sink
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka:9092
+      bindings:
+        goods-in:
+          destination: goods
+          contentType: application/json
+          group: finance # 指定消费者组
+      default-binder: kafka
+server:
+  port: 8802
